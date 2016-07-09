@@ -24,5 +24,5 @@ with open(csv_file) as csvfile:
 	
 		i += 1		
 
- 	words = dict_process(wordDict)
+	words = dict_process(wordDict)
 	save_dict_to_file(words)

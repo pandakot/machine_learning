@@ -14,7 +14,7 @@ from pybrain.tools.shortcuts import buildNetwork
 ########################################
 hidden_size = 50
 epochs = 10
-params_len = 236
+params_len = 236  # replace with the number of lines
 
 trainParams = build_params('model/params_train.txt')
 
@@ -25,6 +25,7 @@ for y1 in trainParams['y']:
 print len(trainParams['x'])
 print len(y)
 
+# TODO: fix the number of pictures
 ds = SupervisedDataSet( params_len, 601 )
 ds.setField( 'input', trainParams['x'] )
 ds.setField( 'target', y )
