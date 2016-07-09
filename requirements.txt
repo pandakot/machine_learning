@@ -1,0 +1,7 @@
+nltk==3.2.1
+numpy==1.11.1
+Pillow==3.3.0
+PyBrain==0.3
+scikit-learn==0.17.1
+scipy==0.17.1
+sklearn==0.0
