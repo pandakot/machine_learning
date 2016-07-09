@@ -7,7 +7,7 @@ from functions import *
 clf = joblib.load('model/model_svc.pkl') 
 
 
-text = 'нельзя просто взять и вышел 10'
+text = 'нельзя просто взять и прийти на хакатон'
 
 stemmed = stemm(text, '', '')
 stemmed = stemmed.split(' ')

@@ -37,8 +37,8 @@ with open(csv_file) as csvfile:
 
 	shuffle(lines)
 
-	count_train = 100 * len(lines) / 100
-	count_validate = 0 * len(lines) / 100
+	count_train = 95 * len(lines) / 100
+	count_validate = 5 * len(lines) / 100
 
 	print count_train
 	print count_validate

@@ -11,7 +11,7 @@ from functions import *
 
 net = pickle.load( open( 'model/model_nn.pkl', 'rb' ))
 
-text = 'нельзя просто взять нарисовать хуй'
+text = 'нельзя просто взять и прийти на хакатон'
 
 stemmed = stemm(text, '', '')
 stemmed = stemmed.split(' ')
