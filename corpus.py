@@ -8,16 +8,16 @@ import sys
 
 def std_to_str(text, words):
 
-	old_stdout = sys.stdout
-	sys.stdout = mystdout = StringIO.StringIO()
-	
-	#text.common_contexts([u'был'], 10) 
-	#text.concordance(u'был')
-	text.common_contexts(words)
-	x = mystdout.getvalue()
-	sys.stdout = old_stdout
-	mystdout.close()
-	return x
+    old_stdout = sys.stdout
+    sys.stdout = mystdout = StringIO.StringIO()
+
+    #text.common_contexts([u'был'], 10)
+    #text.concordance(u'был')
+    text.common_contexts(words)
+    x = mystdout.getvalue()
+    sys.stdout = old_stdout
+    mystdout.close()
+    return x
 
 
 corpus_root = './'

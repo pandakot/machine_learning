@@ -20,7 +20,7 @@ print clf.score(np.array(validateParams['x']), np.array(validateParams['y']))
 #for c in C:
 #	for g in gamma:
 #		print '\nC: %f, gamma: %f' % (c, g)
-		#decision_function_shape='ovo
+        #decision_function_shape='ovo
 #		clf = svm.LinearSVC(C=c)#, gamma=g, kernel='rbf')
 #		print clf.fit(np.array(trainParams['x']), np.array(trainParams['y']))  
 #		print clf.score(np.array(validateParams['x']), np.array(validateParams['y']))  

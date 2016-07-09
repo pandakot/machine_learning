@@ -20,7 +20,7 @@ trainParams = build_params('model/params_train.txt')
 
 y = []
 for y1 in trainParams['y']:
-	y.append(example_result(y1))
+    y.append(example_result(y1))
 
 print len(trainParams['x'])
 print len(y)
@@ -77,10 +77,10 @@ print "training for {} epochs...".format( epochs )
 #trainer.trainUntilConvergence(verbose=True)
 
 for i in range( epochs ):
-	mse = trainer.train()
-	rmse = sqrt( mse )
-	print "training RMSE, epoch {}: {}".format( i + 1, rmse )
-	
+    mse = trainer.train()
+    rmse = sqrt( mse )
+    print "training RMSE, epoch {}: {}".format( i + 1, rmse )
+
 pickle.dump( net, open('model/model_nn.pkl', 'wb' ))
 
 
