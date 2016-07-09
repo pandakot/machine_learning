@@ -1,6 +1,7 @@
 
 import re
 from nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
 from string import punctuation
 from stemming.porter2 import stem
 
@@ -51,7 +52,6 @@ def dict_stemmed(text, wordDict):
 
 ##################################
 def dict_process(wordDict):
-
     print len(wordDict)
 
     dictList = []
@@ -65,7 +65,6 @@ def dict_process(wordDict):
 
 #################################
 def save_dict_to_file(wordDict):
-
     print len(wordDict)
 
     file_name = 'dict.txt'
@@ -79,22 +78,9 @@ def save_dict_to_file(wordDict):
     f.close()
 
 #################################
-def stemm(text, companyA, companyB) :
-    #text = text.replace("~~~'s", '~~~')
-    #companyA = '~~~' + companyA + '~~~'
-    #companyB = '~~~' + companyB + '~~~'
-    #stemmed = text.replace(companyA, 'companya ')
-    #stemmed = stemmed.replace(companyB, 'companyb ')
-
-    letters_only = re.sub("[^\w]", " ", text)
-    #text = letters_only
-    #words = letters_only.lower().split()
-    #stops = set(stopwords.words("english"))
-    #meaningful_words = [stem_word(w) for w in words if not w in stops]
-
-    #text = " ".join( meaningful_words )
-    text = remove_brands(text)
-    return text
+_stemm_tokenizer = RegexpTokenizer(r'\w+')
+def stemm(text) :
+    return _stemm_tokenizer.tokenize(text)
 
 ###################################
 def stem_word(word):

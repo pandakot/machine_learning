@@ -14,21 +14,18 @@ with open(csv_file) as csvfile:
     reader = csv.DictReader(csvfile)
     wordDict = load_dict('dict.txt')
 
-
     i = 0
-    
     for row in reader:
         stemmed = stemm(row['title'], '', '')
 
-        stemmed = stemmed.split(' ')
-
         line = ''
-        for word in wordDict :
+        for word in wordDict:
             line += str(stemmed.count(word)) + ' '
+
+        
 
         line += row['img_id'] + '\n'
         lines.append(line)
-
 
         if i % 100 == 0:
             print i

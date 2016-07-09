@@ -1,28 +1,32 @@
-#from cement.core.foundation import CementApp
-#app = CementApp('process_ds')
-#app.setup()
-#app.run()
-
-from functions import *
 import csv
+from functions import *
+from collections import defaultdict
+
 
 csv_file = 'dataset.csv';
 
-with open(csv_file) as csvfile:
-    reader = csv.DictReader(csvfile)
-    wordDict = {}
 
-    i = 0
-    for row in reader:
-        stemmed = stemm(row['title'], '', '')
-        #print stemmed + '\n'
+def main():
+    with open(csv_file) as csvfile:
+        reader = csv.DictReader(csvfile)
+        word_counts = defaultdict(int)
 
-        wordDict = dict_stemmed(stemmed, wordDict)
+        i = 0
+        for row in reader:
+            stemmed = stemm(row['title'], '', '')
+            #print stemmed + '\n'
 
-        if i % 100 == 0:
-            print i
+            for word in stemmed:
+                word_counts[word] += 1
 
-        i += 1
+            if i % 100 == 0:
+                print i
 
-    words = dict_process(wordDict)
-    save_dict_to_file(words)
+            i += 1
+
+        words = dict_process(word_counts)
+        save_dict_to_file(words)
+
+
+if __name__ == '__main__':
+    main()
