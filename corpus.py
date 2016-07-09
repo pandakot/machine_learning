@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+from __future__ import division  # Python 2 users only
+import nltk, re, pprint
+from nltk import word_tokenize
+from nltk.corpus import PlaintextCorpusReader
+
+corpus_root = './'
+newcorpus = PlaintextCorpusReader(corpus_root , '.*')
+words = newcorpus.words('corpus.txt')
+text = nltk.Text(words)
+
+print '!!!'
+text.common_contexts([u'был'], 10) 
+
