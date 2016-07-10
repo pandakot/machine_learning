@@ -1,8 +1,43 @@
-
+# -*- coding: utf-8 -*-
+from __future__ import division  # Python 2 users only
 import re
+import nltk
 from nltk.corpus import stopwords
 from string import punctuation
 from stemming.porter2 import stem
+
+import nltk, re, pprint
+from nltk import word_tokenize
+from nltk.corpus import PlaintextCorpusReader
+import StringIO
+import sys
+
+def upgrade_keyword(keyword):
+
+	new_keyword = ''
+	corpus_root = './'
+	newcorpus = PlaintextCorpusReader(corpus_root , '.*')
+	words = newcorpus.words('corpus.txt')
+	text = nltk.Text(words)
+
+	kwords = keyword.split(' ')
+	for kw in kwords:
+		new_keyword += get_similar(text, kw) + ' ' 
+	
+	return new_keyword
+
+def get_similar(text, word):
+	old_stdout = sys.stdout
+	sys.stdout = mystdout = StringIO.StringIO()
+	
+	#text.common_contexts([u'был'], 10) 
+	#text.concordance(u'был')
+	text.similar(word)
+	x = mystdout.getvalue()
+	sys.stdout = old_stdout
+	mystdout.close()
+	
+	return x.strip()
 
 ####################################
 def build_params(filename):
@@ -56,7 +91,7 @@ def dict_process(wordDict):
 	
 	dictList = []
 	for word in wordDict:
-		if len(word)>1 and wordDict[word] > 20 :
+		if len(word)>1 and wordDict[word] > 100 :
 			dictList.append(word)
 
 	return sorted(dictList)
@@ -80,21 +115,26 @@ def save_dict_to_file(wordDict):
 
 #################################
 def stemm(text, companyA, companyB) :
+	stemmer = nltk.stem.snowball.RussianStemmer()
 	#text = text.replace("~~~'s", '~~~')
 	#companyA = '~~~' + companyA + '~~~'
 	#companyB = '~~~' + companyB + '~~~'
 	#stemmed = text.replace(companyA, 'companya ')
 	#stemmed = stemmed.replace(companyB, 'companyb ')
 
-	letters_only = re.sub("[^\w]", " ", text) 
+	letters_only = re.sub(r'\d+', 'number', text)
+	#text#re.sub("[^\w]", " ", text) 
 	#text = letters_only
-	#words = letters_only.lower().split()       
+	words = letters_only.lower().split()       
 	#stops = set(stopwords.words("english")) 
-	#meaningful_words = [stem_word(w) for w in words if not w in stops] 
+	meaningful_words = [stemmer.stem(w.decode('utf-8')) for w in words] 
 
-	#text = " ".join( meaningful_words )
+	text = " ".join( meaningful_words )
 	text = remove_brands(text)
-	return text
+
+	#print text
+
+	return text.encode('utf-8')
 
 ###################################
 def stem_word(word):
@@ -110,7 +150,7 @@ def stem_word(word):
  
 ###########################
 def remove_brands(text):
-	brands = ['(', ')', '*', "'", ',', '!', '.']
+	brands = ['(', ')', '*', "'", ',', '!', '.', '"', '?','-','+','?',"\n","\t"]
 
 	for brand in brands:
 		text = text.replace(brand, '')
