@@ -48,7 +48,7 @@ def main():
 
     # get params len from the X vector
     params_len = len(trainParams['x'][0])
-    output_layer_num = 3
+    output_layer_num = 601
 
     y = []
 

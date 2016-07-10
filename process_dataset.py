@@ -11,12 +11,12 @@ params_file2 = 'model/params_validate.txt'
 params_file3 = 'model/params_test.txt'
 
 
-def _get_popular_words(wordDict):
+def _get_popular_words(wordDict, threshold=100):
     print(len(wordDict))
 
     dictList = []
     for word in wordDict:
-        if len(word)>1 and wordDict[word] > 2 :
+        if len(word) > 1 and wordDict[word] > threshold:
             dictList.append(word)
 
     return sorted(dictList)
@@ -72,17 +72,17 @@ def main():
         print(count_validate)
         print(len(lines))
 
-        fp = open(params_file1 , 'w')
+        fp = open(params_file1, 'w')
         for i in range(0, count_train - 1):
             fp.write(lines[i])
         fp.close()
 
-        fp = open(params_file2 , 'w')
+        fp = open(params_file2, 'w')
         for i in range(count_train, count_train + count_validate - 1):
             fp.write(lines[i])
         fp.close()
 
-        fp = open(params_file3 , 'w')
+        fp = open(params_file3, 'w')
         for i in range((count_validate + count_train), len(lines) - 1):
             fp.write(lines[i])
         fp.close()
