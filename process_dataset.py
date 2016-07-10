@@ -11,7 +11,7 @@ params_file2 = 'model/params_validate.txt'
 params_file3 = 'model/params_test.txt'
 
 
-def _get_popular_words(wordDict, threshold=100):
+def _get_popular_words(wordDict, threshold=4):
     print(len(wordDict))
 
     dictList = []
