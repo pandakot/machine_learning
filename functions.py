@@ -94,11 +94,6 @@ def dict_process(wordDict):
         if len(word)>1 and wordDict[word] > 100 :
             dictList.append(word)
 
-    dictList = []
-    for word in wordDict:
-        if len(word)>1 and wordDict[word] > 20 :
-            dictList.append(word)
-
     return sorted(dictList)
 
 
