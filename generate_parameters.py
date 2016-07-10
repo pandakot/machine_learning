@@ -16,19 +16,17 @@ with open(csv_file) as csvfile:
 
     i = 0
     for row in reader:
-        stemmed = stemm(row['title'], '', '')
+        stemmed = stemm(row['title'])
 
         line = ''
         for word in wordDict:
             line += str(stemmed.count(word)) + ' '
 
-        
-
         line += row['img_id'] + '\n'
         lines.append(line)
 
         if i % 100 == 0:
-            print i
+            print(i)
 
         i += 1
 
@@ -37,9 +35,9 @@ with open(csv_file) as csvfile:
     count_train = 95 * len(lines) / 100
     count_validate = 5 * len(lines) / 100
 
-    print count_train
-    print count_validate
-    print len(lines)
+    print(count_train)
+    print(count_validate)
+    print(len(lines))
 
     fp = open(params_file1 , 'w')
     for i in range(0, count_train - 1):

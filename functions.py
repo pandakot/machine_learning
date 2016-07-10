@@ -10,7 +10,7 @@ from string import punctuation
 import nltk, re, pprint
 from nltk import word_tokenize
 from nltk.corpus import PlaintextCorpusReader
-import StringIO
+from io import StringIO
 import sys
 
 def upgrade_keyword(keyword):
@@ -87,7 +87,7 @@ def dict_stemmed(text, wordDict):
 
 ##################################
 def dict_process(wordDict):
-    print len(wordDict)
+    print(len(wordDict))
 
     dictList = []
     for word in wordDict:
