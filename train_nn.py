@@ -42,7 +42,7 @@ def _build_params(filename):
 
 def main():
     hidden_size = 50
-    epochs = 10
+    epochs = 5
 
     trainParams = _build_params('model/params_train.txt')
 
@@ -98,7 +98,7 @@ def main():
 
     net.sortModules()
 
-    #net = buildNetwork( params_len, hidden_size, 601, bias = True )
+    net = buildNetwork( params_len, hidden_size, 601, bias = True )
     trainer = BackpropTrainer(net, ds)
 
     print("training for {} epochs...".format(epochs))
