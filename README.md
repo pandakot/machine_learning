@@ -1,10 +1,7 @@
-
+First, run
 
 ```
 python process_dataset.py
-
-
-python generate_parameters.py
 
 ```
 
@@ -16,5 +13,5 @@ Then execute
 python train_nn.py
 
 # replace the phrase first
-python predict_nn.py
+python predict_nn.py "your phrase"
 ```

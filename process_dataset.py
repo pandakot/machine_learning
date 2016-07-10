@@ -16,7 +16,7 @@ def _get_popular_words(wordDict):
 
     dictList = []
     for word in wordDict:
-        if len(word)>1 and wordDict[word] > 100 :
+        if len(word)>1 and wordDict[word] > 2 :
             dictList.append(word)
 
     return sorted(dictList)

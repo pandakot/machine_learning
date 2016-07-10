@@ -1,23 +1,15 @@
-# -*- coding: utf-8 -*-
-from __future__ import division  # Python 2 users only
-import re
-import nltk
-from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
-from string import punctuation
-# from stemming.porter2 import stem
 
 import nltk, re, pprint
-from nltk import word_tokenize
 from nltk.corpus import PlaintextCorpusReader
 from io import StringIO
 import sys
 
-def upgrade_keyword(keyword):
 
+def upgrade_keyword(keyword):
     new_keyword = ''
     corpus_root = './'
-    newcorpus = PlaintextCorpusReader(corpus_root , '.*')
+    newcorpus = PlaintextCorpusReader(corpus_root, '.*')
     words = newcorpus.words('corpus.txt')
     text = nltk.Text(words)
 
@@ -42,14 +34,14 @@ def get_similar(text, word):
 
 ####################################
 def build_params(filename):
-
+    print('build_params')
     fp = open(filename, 'r')
 
     Xbig = []
     y = []
 
     i = 0
-    for line in fp.readlines() :
+    for line in fp.readlines():
 
         x = []
         line = line.split(' ')
@@ -57,7 +49,7 @@ def build_params(filename):
         line_len = len(line)
         for p in line :
 
-            if j < line_len :
+            if j < line_len:
                 x.append(int(p))
             else:
                 y.append(int(p.strip('\n')))
@@ -68,22 +60,7 @@ def build_params(filename):
     print(i)
     fp.close()
     return {'x': Xbig, 'y': y}
-#############################
 
-def strip_punctuation(s):
-    return ''.join(c for c in s if c not in punctuation)
-
-###########################
-def dict_stemmed(text, wordDict):
-
-    for word in text.split(' '):
-
-        if word in list(wordDict.keys()) :
-            wordDict[word] += 1
-        else:
-            wordDict[word] = 1
-
-    return wordDict
 
 ##################################
 def dict_process(wordDict):
@@ -114,39 +91,27 @@ def save_dict_to_file(wordDict):
 
 #################################
 _stemm_tokenizer = RegexpTokenizer(r'\w+')
-def stemm(text) :
-    return _stemm_tokenizer.tokenize(text)
+def stemm(text):
+    # removing all numbers
+    text = re.sub(r'\d+', 'number', text)
+    text = text.lower()
 
-###################################
-def stem_word(word):
-    to_return = '';
+    tokens = _stemm_tokenizer.tokenize(text)
+    russian_stemmer = nltk.stem.snowball.RussianStemmer()
 
-    if word.find('suppl') == -1:
-        to_return = stem(word)
-    else:
-        to_return = word
+    # TODO: should we remove 2 letter words?
 
-    return to_return
+    return [russian_stemmer.stem(t) for t in tokens]
 
- 
-###########################
-def remove_brands(text):
-    brands = ['(', ')', '*', "'", ',', '!', '.', '"', '?','-','+','?',"\n","\t"]
-
-    for brand in brands:
-        text = text.replace(brand, '')
-
-    return text
 
 ###############################
-def example_result(text_result):
-    count_images = [0]*601;
+def example_result(text_result, output_layer_num):
+    count_images = [0] * output_layer_num
 
     count = 0
     for i in count_images:
-
         if count_images[count] == (int(text_result)-1):
-            print(str(count) + ': !!!!!!!!!!!!!!')
+            # print(str(count) + ': !!!!!!!!!!!!!!')
             count_images[count] = 1
         count += 1
 
@@ -181,33 +146,5 @@ def load_dict(filename) :
     dictFile.close()
     return wd
 
-
-############################
-###########################
-############################
-def stemm_old(text, companyA, companyB) :
-    companyA = '~~~' + companyA + '~~~'
-    companyB = '~~~' + companyB + '~~~'
-    stemmed = text.replace(companyA, 'companya ')
-    stemmed = stemmed.replace(companyB, 'companyb ')
-    stemmed = stemmed.replace('%', 'percent')
-    stemmed = stemmed.lower()
-    stemmed = re.sub("\d+", "number", stemmed)
-    stemmed = re.sub('\s+', ' ', stemmed)
-    stemmed = re.sub(r'\W*\b\w{1,2}\b', '', stemmed)
-    stemmed = stemmed.replace('  ', ' ')
-    stemmed = stemmed.replace('  ', ' ')
-    stemmed = stemmed.replace('  ', ' ')
-    stemmed = remove_brands(stemmed)
-    stemmed = strip_punctuation(stemmed)
-
-    #to_return = stemmed
-    to_return = '';
-    for word in stemmed.split(' '):
-        if word.find('suppl') == -1:
-            to_return += stem(word) + ' '
-        else:
-            to_return += word + ' '
-    return to_return
 
 
