@@ -3,7 +3,7 @@ import re
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 from string import punctuation
-from stemming.porter2 import stem
+# from stemming.porter2 import stem
 
 ####################################
 def build_params(filename):
@@ -30,7 +30,7 @@ def build_params(filename):
         Xbig.append(x)
         i += 1
 
-    print i
+    print(i)
     fp.close()
     return {'x': Xbig, 'y': y}
 #############################
@@ -43,7 +43,7 @@ def dict_stemmed(text, wordDict):
 
     for word in text.split(' '):
 
-        if word in wordDict.keys() :
+        if word in list(wordDict.keys()) :
             wordDict[word] += 1
         else:
             wordDict[word] = 1
@@ -52,7 +52,7 @@ def dict_stemmed(text, wordDict):
 
 ##################################
 def dict_process(wordDict):
-    print len(wordDict)
+    print(len(wordDict))
 
     dictList = []
     for word in wordDict:
@@ -65,7 +65,7 @@ def dict_process(wordDict):
 
 #################################
 def save_dict_to_file(wordDict):
-    print len(wordDict)
+    print(len(wordDict))
 
     file_name = 'dict.txt'
     f = open(file_name, 'w')
@@ -111,7 +111,7 @@ def example_result(text_result):
     for i in count_images:
 
         if count_images[count] == (int(text_result)-1):
-            print str(count) + ': !!!!!!!!!!!!!!'
+            print(str(count) + ': !!!!!!!!!!!!!!')
             count_images[count] = 1
         count += 1
 

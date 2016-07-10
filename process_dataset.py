@@ -13,14 +13,13 @@ def main():
 
         i = 0
         for row in reader:
-            stemmed = stemm(row['title'], '', '')
-            #print stemmed + '\n'
+            stemmed = stemm(row['title'])
 
             for word in stemmed:
                 word_counts[word] += 1
 
             if i % 100 == 0:
-                print i
+                print(i)
 
             i += 1
 
