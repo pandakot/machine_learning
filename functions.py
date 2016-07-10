@@ -1,9 +1,44 @@
-
+# -*- coding: utf-8 -*-
+from __future__ import division  # Python 2 users only
 import re
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 from string import punctuation
 # from stemming.porter2 import stem
+
+import nltk, re, pprint
+from nltk import word_tokenize
+from nltk.corpus import PlaintextCorpusReader
+import StringIO
+import sys
+
+def upgrade_keyword(keyword):
+
+    new_keyword = ''
+    corpus_root = './'
+    newcorpus = PlaintextCorpusReader(corpus_root , '.*')
+    words = newcorpus.words('corpus.txt')
+    text = nltk.Text(words)
+
+    kwords = keyword.split(' ')
+    for kw in kwords:
+        new_keyword += get_similar(text, kw) + ' '
+
+    return new_keyword
+
+def get_similar(text, word):
+    old_stdout = sys.stdout
+    sys.stdout = mystdout = StringIO.StringIO()
+
+    #text.common_contexts([u'был'], 10)
+    #text.concordance(u'был')
+    text.similar(word)
+    x = mystdout.getvalue()
+    sys.stdout = old_stdout
+    mystdout.close()
+
+    return x.strip()
 
 ####################################
 def build_params(filename):
@@ -52,7 +87,12 @@ def dict_stemmed(text, wordDict):
 
 ##################################
 def dict_process(wordDict):
-    print(len(wordDict))
+    print len(wordDict)
+
+    dictList = []
+    for word in wordDict:
+        if len(word)>1 and wordDict[word] > 100 :
+            dictList.append(word)
 
     dictList = []
     for word in wordDict:
@@ -96,7 +136,7 @@ def stem_word(word):
  
 ###########################
 def remove_brands(text):
-    brands = ['(', ')', '*', "'", ',', '!', '.']
+    brands = ['(', ')', '*', "'", ',', '!', '.', '"', '?','-','+','?',"\n","\t"]
 
     for brand in brands:
         text = text.replace(brand, '')

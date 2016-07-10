@@ -1,3 +1,6 @@
+*.pyc
+*.bak
+
 env
 env3
 dataset.csv

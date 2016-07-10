@@ -14,7 +14,7 @@ from pybrain.tools.shortcuts import buildNetwork
 ########################################
 hidden_size = 50
 epochs = 10
-params_len = 236  # replace with the number of lines
+params_len = 792
 
 trainParams = build_params('model/params_train.txt')
 
