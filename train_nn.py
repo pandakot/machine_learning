@@ -1,15 +1,16 @@
+import argparse
+import os
+
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
-from pybrain.tools.shortcuts import buildNetwork
-from pybrain.structure.modules import TanhLayer
 import pickle as pickle
 from math import sqrt
 
-import numpy as np
-from functions import *
-
 from pybrain.structure import FeedForwardNetwork, LinearLayer, SigmoidLayer, FullConnection, RecurrentNetwork
-from pybrain.tools.shortcuts import buildNetwork
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--model-folder', dest='model_folder', required=True)
 
 
 def _build_params(filename):
@@ -41,10 +42,12 @@ def _build_params(filename):
 
 
 def main():
+    args = parser.parse_args()
+
     hidden_size = 50
     epochs = 5
 
-    trainParams = _build_params('model/params_train.txt')
+    trainParams = _build_params(os.path.join(args.model_folder, 'params_train.txt'))
 
     # get params len from the X vector
     params_len = len(trainParams['x'][0])
@@ -110,7 +113,7 @@ def main():
         rmse = sqrt(mse)
         print("training RMSE, epoch {}: {}".format(i + 1, rmse))
 
-    pickle.dump(net, open('model/model_nn.pkl', 'wb'))
+    pickle.dump(net, open(os.path.join(args.model_folder, 'model_nn.pkl'), 'wb'))
 
 
 if __name__ == '__main__':
