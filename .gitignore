@@ -7,6 +7,6 @@
 env
 env3
 dataset.csv
-/model/params_train.txt
-/model/params_validate.txt
-/model/params_test.txt
+model/params_train.txt
+model/params_validate.txt
+model/params_test.txt
