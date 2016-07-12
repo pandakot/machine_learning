@@ -39,7 +39,7 @@ def main():
 
             i += 1
 
-        popular_words = _get_popular_words(word_counts)
+        popular_words = _get_popular_words(word_counts, 100)
         _save_dict_to_file(os.path.join(args.model_folder, 'dict.txt'), popular_words)
 
     print('Generating parameters')

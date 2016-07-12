@@ -1,14 +1,20 @@
+import argparse
+import os
+
 import pickle as pickle
 import sys
 
 from functions import *
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model-folder', dest='model_folder', required=True)
+parser.add_argument('--text', dest='text', required=True)
 
-net = pickle.load(open('model/model_nn.pkl', 'rb'))
-wordDict = load_dict('dict.txt')
 
+def predict(text, model_file, dict_file):
+    net = pickle.load(open(model_file, 'rb'))
+    wordDict = load_dict(dict_file)
 
-def predict(text):
     stemmed = stemm(text)
 
     x = []
@@ -23,5 +29,8 @@ def predict(text):
 
 
 if __name__ == '__main__':
-    text = sys.argv[1]
-    print(predict(text))
+    args = parser.parse_args()
+    model_file = os.path.join(args.model_folder, 'model_nn.pkl')
+    dict_file = os.path.join(args.model_folder, 'dict.txt')
+    text = args.text
+    print(predict(text, model_file, dict_file))
