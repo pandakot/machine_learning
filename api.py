@@ -12,7 +12,7 @@ mapping = pickle.load(open('model/mapping.pkl', 'rb'))
 def hello_world():
     q = request.args.get('query', None)
 
-    img_id = predict_nn.predict(q)
+    img_id = predict_nn.predict(q, 'model/model_nn.pkl', 'model/dict.txt')
     img_name = mapping[str(img_id)]
 
     return jsonify(dict(img_id=img_id, img_name=img_name, query=q))
