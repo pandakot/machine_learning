@@ -1,6 +1,7 @@
 from nltk.tokenize import RegexpTokenizer
 import nltk, re
 
+import nltk, re
 
 def build_params(filename):
     print('build_params')

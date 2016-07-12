@@ -7,3 +7,4 @@
 env
 env3
 dataset.csv
+/model/params*.txt
